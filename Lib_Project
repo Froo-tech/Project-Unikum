@@ -1,0 +1,60 @@
+books = []
+
+def display_books():
+    if not books:
+        print("Список книг пуст.")
+    else:
+        print("Список книг:")
+        for index, book in enumerate(books, start=1):
+            print(f"{index}. {book}")
+
+
+def add_book():
+    new_book = input("Введите название книги, которую хотите добавить: ")
+    if new_book:
+        books.append(new_book)
+        print(f"Книга '{new_book}' добавлена в список.")
+    else:
+        print("Название книги не может быть пустым.")
+
+
+def rem_book():
+
+    display_books()
+    if books:
+        try:
+            book_index = int(input("Введите номер книги, которую хотите удалить: ")) - 1
+            if 0 <= book_index < len(books):
+                removed_book = books.pop(book_index)
+                print(f"Книга '{removed_book}' удалена из списка.")
+            else:
+                print("Неверный номер книги.")
+        except ValueError:
+            print("Пожалуйста, введите корректный номер.")
+
+
+def main():
+    while True:
+        print("\nВыберите действие:")
+        print("1. Вывести список книг")
+        print("2. Добавить книгу")
+        print("3. Удалить книгу")
+        print("4. Выход")
+
+        choice = input("Ваш выбор: ")
+
+        if choice == '1':
+            display_books()
+        elif choice == '2':
+            add_book()
+        elif choice == '3':
+            rem_book()
+        elif choice == '4':
+            print("Выход из программы.")
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, попробуйте снова.")
+
+
+if __name__ == "__main__":
+    main()

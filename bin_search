@@ -1,0 +1,33 @@
+import random
+lr = int(input("Введите длинну списка "))
+lst = []
+for i in range(lr):
+    lst.append(random.randint(1,9))
+    lst.sort()
+print(lst)
+Zag = lst[random.randint(0, lr)]
+lst = list(set(lst))
+lst = list(lst)
+lst.sort()
+print(lst)
+def binary_SEARCH(data, elem):
+    low = 0
+    high = len(data) - 1
+
+    while low <= high:
+
+        middle = (low + high)//2
+        if data[middle] == elem:
+            return elem
+        elif data[middle] > elem:
+            high = middle - 1
+        elif data[middle] < elem:
+            low = middle + 1
+    return - 1
+binary_SEARCH(lst, Zag)
+num  = int(input('Введите число'))
+if num > Zag:
+    print("Больше ")
+elif num < Zag:
+    print("Меньше")
+elif num == Zag:

@@ -1,0 +1,143 @@
+import time
+def print_receipt(func):
+    def wrapper(*args, **kwargs):
+        print("\n==============================")
+        print("            Ваш чек:         ")
+        print("------------------------------")
+        func(*args, **kwargs)
+        print("==============================")
+
+    return wrapper
+
+
+import sys
+import time
+import threading
+
+# Флаг для остановки вращения
+running = True
+
+def spinning_cursor():
+    cursor = ['|', '/', '-', '\\']
+    while running:
+        for char in cursor:
+            sys.stdout.write('\r' + char)
+            sys.stdout.flush()
+            time.sleep(0.1)  # Задержка для эффекта вращения
+
+# Запускаем крутящийся курсор в отдельном потоке
+spinner_thread = threading.Thread(target=spinning_cursor)
+spinner_thread.start()
+
+# Ждем 10 секунд
+time.sleep(10)
+
+# Останавливаем вращение
+running = False
+spinner_thread.join()  # Ждем завершения потока
+sys.stdout.write('\r' + ' ' * 10 + '\r')  # Очистка строки
+
+
+
+
+
+
+menu = {
+    "Кофе": 100,
+    "Пирожок": 75,
+    "Чай": 50,
+    "Сэндвич": 150,
+    "Салат": 120
+}
+
+
+
+def display_menu():
+    print("Меню:")
+    for item, price in menu.items():
+        print(f"{item}: {price} руб.")
+
+
+def take_order():
+    order = {}
+    while True:
+        display_menu()
+        choice = input("Выберите продукт: ").strip()
+        if choice.lower() == 'стоп':
+            break
+        if choice in menu:
+            quantity = int(input(f"Сколько {choice} вы хотите заказать? "))
+            order[choice] = order.get(choice, 0) + quantity
+        else:
+            print("Продукт не найден в меню. Пожалуйста, выберите другой продукт.")
+    return order
+
+
+def draw_terminal():
+    terminal = [
+        "==============================",
+        "|                            |",
+        "|         ПЛАТЕЖНЫЙ         |",
+        "|         ТЕРМИНАЛ          |",
+        "|                            |",
+        "|  Введите сумму:           |",
+        "|  ______________________    |",
+        "|                            |",
+        "|  [1] Оплатить             |",
+        "|  [2] Отмена               |",
+        "|                            |",
+        "=============================="
+    ]
+
+    for line in terminal:
+        print(line)
+
+def calculate_total(order):
+    total = sum(menu[item] * quantity for item, quantity in order.items())
+    return total
+
+
+@print_receipt
+def display_receipt(order, total, payment_method, cash_given=None):
+    for item, quantity in order.items():
+        print(f"{item}: {menu[item]} руб. x {quantity} шт. = {menu[item] * quantity} руб.")
+    print(f"Итого к оплате: {total} руб.")
+    if payment_method == 'наличные' and cash_given is not None:
+        change = cash_given - total
+        print(f"Внесено: {cash_given} руб.")
+        print(f"Сдача: {change} руб.")
+    elif payment_method == 'безналичный':
+        print("Оплата прошла успешно.")
+
+
+def main():
+    print("Добро пожаловать в кафе!")
+    order = take_order()
+
+    if not order:
+        print("Вы не сделали заказ.")
+        return
+
+    total = calculate_total(order)
+    payment_method = input("Выберите способ оплаты (нал/безнал): ").strip().lower()
+
+    if payment_method == 'нал':
+        cash_given = int(input("Введите сумму, которую вы даете: "))
+        if cash_given < total:
+            print("Недостаточно средств для оплаты.")
+            return
+        display_receipt(order, total, payment_method, cash_given)
+    elif payment_method == 'безнал':
+        display_receipt(order, total, payment_method)
+        draw_terminal()
+        states = input()
+        if states == '1':
+            print("Ожидаем подтверждения ю-мани \n""У вас медленный интернет ")
+            time.sleep(3)
+            print('Успешноооо')
+    else:
+        print("Некорректный способ оплаты.")
+
+
+if __name__ == "__main__":
+    main()

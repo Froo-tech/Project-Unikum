@@ -1,0 +1,58 @@
+from os.path import split
+from aiogram import Bot, Dispatcher, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.utils import executor
+import asyncio
+import os
+
+API_TOKEN = ""
+
+bot = Bot(token=API_TOKEN)
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
+
+@dp.message_handler(content_types=types.ContentType.DOCUMENT)
+async def handle_document(message: types.Message):
+    if message.document.mime_type == 'text/plain':
+        try:
+            file_id = message.document.file_id
+            file = await bot.get_file(file_id)
+            file_name = f'./{message.document.file_name}'
+            await bot.download_file(file.file_path, file_name)
+
+            surnames = read_surnames(file_name)
+            if isinstance(surnames, str): # Обработка ошибки чтения файла
+                await message.reply(surnames)
+                return
+
+            sorted_surnames = sorted(surnames)
+            with open(file_name, 'rb') as f:
+                await bot.send_document(message.from_user.id, f)
+            await message.reply(f"Отсортированные фамилии:\n{chr(10).join(sorted_surnames)}") # \n заменен на chr(10)
+
+        except FileNotFoundError:
+            await message.reply("Ошибка: файл не найден.")
+        except Exception as e:
+            await message.reply(f"Произошла ошибка: {e}")
+
+
+@dp.message_handler(content_types=['text'])
+async def print_tag(message: types.Message):
+    await message.reply("Отправьте файл с фамилиями, по одной на строке.")
+
+
+def read_surnames(path):
+    try:
+        with open(path, "r", encoding='utf-8') as file:
+            surnames = [line.strip() for line in file]
+            return surnames
+    except FileNotFoundError:
+        return "Файл не найден"
+    except Exception as e:
+        return f"Ошибка при чтении файла: {e}"
+
+
+if __name__ == '__main__':
+    print("Бот запущен!")
+    executor.start_polling(dp, skip_updates=True)
+

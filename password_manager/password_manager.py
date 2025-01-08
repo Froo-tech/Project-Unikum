@@ -50,12 +50,15 @@ def reg():
     c.close()
     return Status_reg
 
-def log():
+def log(bus = None, bpas = None):
     c = sqlite3.connect("ps1.bd")
     cr = c.cursor()
-
-    username_to_check = input("Введите имя пользователя: ")
-    password_to_check = input("Введите пароль: ")
+    if bus != None :
+        username_to_check = bus
+        password_to_check = bpas
+    else:
+        username_to_check = input("Введите имя пользователя: ")
+        password_to_check = input("Введите пароль: ")
 
     cr.execute('SELECT pas FROM Users WHERE username = ?', (username_to_check,))
     result = cr.fetchone()

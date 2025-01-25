@@ -1,0 +1,220 @@
+body {
+    margin: 0; /* Убираем отступы по умолчанию */
+    padding: 0;
+    background-color: #F0F4F3; /* Устанавливаем фон для всей страницы */
+    font-family: 'Golos Text', sans-serif; /* Устанавливаем шрифт по умолчанию */
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Минимальная высота равна высоте экрана */
+}
+p.tracking{
+
+
+    position: absolute;
+    width: 248px;
+    height: 38px;
+    left: 270px;
+    top: 440px;
+
+    font-family: 'Golos Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+
+    color: rgba(0, 0, 0, 0.52);
+
+
+}
+label.recipient-adres{
+    position: absolute;
+    width: 299px;
+    height: 31px;
+    left: 807px;
+    top: 280px; /* Было 244px, теперь 244px - 50px = 194px */
+    font-family: 'Golos Text', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    color: rgba(0, 0, 0, 0.52);
+}
+input#recipient-adres{
+
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 801px;
+    top: 320px; /* Было 227px, теперь 227px - 50px = 177px */
+    background: #ffffff;
+    border-radius: 7px;
+    border: none; /* Убираем границу */
+    padding: 10px; /* Добавляем отступы внутри поля */
+    font-size: 20px; /* Размер текста */
+}
+label.sender-adres{
+    position: absolute;
+    width: 299px;
+    height: 31px;
+    left: 90px;
+    top: 280px; /* Было 244px, теперь 244px - 50px = 194px */
+    font-family: 'Golos Text', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    color: rgba(0, 0, 0, 0.52);
+}
+input#sender-adres{
+
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 84px;
+    top: 320px; /* Было 227px, теперь 227px - 50px = 177px */
+    background: #ffffff;
+    border-radius: 7px;
+    border: none; /* Убираем границу */
+    padding: 10px; /* Добавляем отступы внутри поля */
+    font-size: 20px; /* Размер текста */
+}
+label.sender-name {
+    position: absolute;
+    width: 299px;
+    height: 31px;
+    left: 807px;
+    top: 140px; /* Было 244px, теперь 244px - 50px = 194px */
+    font-family: 'Golos Text', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    color: rgba(0, 0, 0, 0.52);
+}
+
+input#sender-name {
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 801px;
+    top: 177px; /* Было 227px, теперь 227px - 50px = 177px */
+    background: #ffffff;
+    border-radius: 7px;
+    border: none; /* Убираем границу */
+    padding: 10px; /* Добавляем отступы внутри поля */
+    font-size: 20px; /* Размер текста */
+}
+
+/* Стили для метки "Получатель" */
+label.recipient-name {
+    position: absolute;
+    width: 299px;
+    height: 31px;
+    left: 90px;
+    top: 140px; /* Было 244px, теперь 244px - 50px = 194px */
+    font-family: 'Golos Text', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    color: rgba(0, 0, 0, 0.52);
+}
+
+/* Стили для поля ввода "Получатель" */
+input#recipient-name {
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 84px;
+    top: 177px; /* Было 227px, теперь 227px - 50px = 177px */
+    background: #ffffff;
+    border-radius: 7px;
+    border: none; /* Убираем границу */
+    padding: 10px; /* Добавляем отступы внутри поля */
+    font-size: 20px; /* Размер текста */
+}
+p.logo{
+
+
+    position: absolute;
+    width: 347px;
+    height: 185px;
+    left: 13px;
+    top: -15px;
+
+    font-family: 'Alata';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 50px;
+
+    color: rgba(0, 0, 0, 0.2);
+
+
+}
+
+/* Стили для кнопки "Создать доставку" */
+button.create_delivery {
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 470px;
+    top: calc(72% - 100px); /* Поднимаем ещё на 50px (всего на 100px) */
+    background: #1937FF;
+    border-radius: 4px;
+    border: none; /* Убираем границу */
+    font-family: 'Alata', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 50px;
+    color: #FFFFFF;
+    cursor: pointer; /* Изменяем курсор при наведении */
+}
+/* Стили для поля ввода "Номер отслеживания" */
+input#tracking-number {
+    position: absolute;
+    width: 900px;
+    height: 60px;
+    left: 270px;
+    top: 520px; /* Было 420px, теперь 420px + 100px = 520px */
+    background: #FFFFFF;
+    border-radius: 6px;
+    border: none; /* Убираем границу */
+    padding: 10px; /* Добавляем отступы внутри поля */
+    font-size: 20px; /* Размер текста */
+}
+
+/* Стили для метки "Номер отслеживания" */
+label.tracking-number {
+    position: absolute;
+    width: 430px;
+    height: 50px;
+    left: 284px;
+    top: 480px; /* Было 380px, теперь 380px + 100px = 480px */
+    font-family: 'Alata', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 50px;
+    color: rgba(0, 0, 0, 0.33);
+}
+
+/* Стили для кнопки "Отследить" */
+button.tracking-number {
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 470px;
+    top: 634px; /* Было 534px, теперь 534px + 100px = 634px */
+    background: #1937FF;
+    border-radius: 4px;
+    border: none; /* Убираем границу */
+    font-family: 'Alata', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 50px;
+    color: #FFFFFF;
+    cursor: pointer; /* Изменяем курсор при наведении */
+}

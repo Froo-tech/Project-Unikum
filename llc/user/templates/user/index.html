@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sdik</title>
+    <link rel="stylesheet" href="{% static 'user/css/index.css' %}">
+
+</head>
+<body>
+    <p class="logo">Logo</p>
+    <p class="tracking">Отследить:</p>
+
+    <div>
+
+        <input type="text" id="tracking-number" name="tracking-number" placeholder="Введите номер отслеживания">
+        <button class="tracking-number" type="button" onclick="trackPackage()">Отследить</button>
+    </div>
+
+    <!-- Форма для отправки посылки -->
+    <div>
+        <label class="sender-name" for="sender-name">Отправитель:</label>
+        <input type="text" id="sender-name" name="sender-name" placeholder="Введите отправителя">
+
+        <label class="recipient-name" for="recipient-name">Получатель:</label>
+        <input type="text" id="recipient-name" name="recipient-name" placeholder="Введите имя получателя">
+
+        <label class="sender-adres" for="sender-adres">Адрес отправки:</label>
+        <input type="text" id="sender-adres" name="sender-adres" placeholder="Введите откуда">
+
+        <label class="recipient-adres" for="recipient-adres">Адрес доставки:</label>
+        <input type="text" id="recipient-adres" name="recipient-adres" placeholder="Введите куда">
+
+        <button class="create_delivery" type="button" onclick="sendPackage()">Создать доставку</button>
+    </div>
+
+    <script>
+        function trackPackage() {
+            const trackingNumber = document.getElementById('tracking-number').value;
+            if (!trackingNumber) {
+                alert('Пожалуйста, введите номер отслеживания.');
+                return;
+            }
+            const url = `tracking_number?tracking_number=${encodeURIComponent(trackingNumber)}`;
+            window.location.href = url;
+        }
+
+        function sendPackage() {
+            const senderName = document.getElementById('sender-name').value;
+            const recipientName = document.getElementById('recipient-name').value;
+            const senderAdres = document.getElementById('sender-adres').value;
+            const recipientAdres = document.getElementById('recipient-adres').value;
+
+            if (!senderName || !recipientName || !senderAdres || !recipientAdres) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+            const url = `send?sender=${encodeURIComponent(senderName)}&recipient=${encodeURIComponent(recipientName)}&sender_adres=${encodeURIComponent(senderAdres)}&recipient_adres=${encodeURIComponent(recipientAdres)}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

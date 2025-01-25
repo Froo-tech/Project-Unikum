@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sdik sending</title>
+    <link rel="stylesheet" href="{% static 'user/css/send.css' %}">
+
+</head>
+<body>
+    <p class="logo" >Logo</p>
+    <p class="recipient" >Получатель: {{ recipient }}</p>
+    <p class="sender" >Отправитель: {{ sender }}</p>
+    <p class="sender_adres" >Адрес отправки: {{  sender_adres  }}</p>
+    <p class="recipient_adres" >Адрес доставки: {{  recipient_adres  }}</p>
+    <p class="tracking_number" >Трек номер: {{  tracking_number  }}</p>
+</body>
+</html>

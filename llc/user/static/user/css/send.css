@@ -1,0 +1,173 @@
+body {
+    margin: 0; /* Убираем отступы по умолчанию */
+    padding: 0;
+    background-color: #F0F4F3; /* Устанавливаем фон для всей страницы */
+    font-family: 'Golos Text', sans-serif; /* Устанавливаем шрифт по умолчанию */
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Минимальная высота равна высоте экрана */
+}
+p.recipient {
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 84px;
+    top: 472px;
+
+    background: #1937FF;
+    border-radius: 4px;
+
+    font-family: 'Golos Text', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+
+    color: #9BA8FF;
+
+    /* Центрирование текста */
+    display: flex; /* Включаем flexbox */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    text-align: center; /* Дополнительное центрирование текста */
+}
+p.sender_adres{
+   
+
+position: absolute;
+width: 500px;
+height: 60px;
+left: 84px;
+top: 612px;
+
+background: #1937FF;
+border-radius: 4px;
+
+
+font-family: 'Golos Text', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 36px;
+
+color: #9BA8FF;
+
+/* Центрирование текста */
+display: flex; /* Включаем flexbox */
+align-items: center; /* Центрируем по вертикали */
+justify-content: center; /* Центрируем по горизонтали */
+text-align: center; /* Дополнительное центрирование текста */
+
+}
+p.sender{
+    /* Rectangle 13 */
+
+position: absolute;
+width: 500px;
+height: 60px;
+left: 856px;
+top: 472px;
+
+background: #1937FF;
+border-radius: 4px;
+
+font-family: 'Golos Text', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 36px;
+
+color: #9BA8FF;
+
+/* Центрирование текста */
+display: flex; /* Включаем flexbox */
+align-items: center; /* Центрируем по вертикали */
+justify-content: center; /* Центрируем по горизонтали */
+text-align: center; /* Дополнительное центрирование текста */
+
+}
+p.recipient_adres{
+
+
+    position: absolute;
+    width: 500px;
+    height: 60px;
+    left: 856px;
+    top: 612px;
+
+    background: #1937FF;
+    border-radius: 4px;
+
+    font-family: 'Golos Text', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    
+    color: #9BA8FF;
+    
+    /* Центрирование текста */
+    display: flex; /* Включаем flexbox */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    text-align: center; /* Дополнительное центрирование текста */
+    
+}
+
+p.tracking_number{
+
+    position: absolute;
+    width: 1024px;
+    height: 60px;
+    left: 470px;
+    top: 360px;
+
+    background: #1937FF;
+    border-radius: 4px;
+
+
+
+    position: absolute;
+    width: 1024px;
+    height: 50px;
+    left: 206px;
+    top: 365px;
+
+    font-family: 'Alata';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 50px;
+
+
+    color: #FFFFFF;
+    
+    color: #C8D0FF;
+    
+    /* Центрирование текста */
+    display: flex; /* Включаем flexbox */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    text-align: center; /* Дополнительное центрирование текста */
+    
+}
+p.logo{
+
+
+    position: absolute;
+    width: 347px;
+    height: 185px;
+    left: 13px;
+    top: -15px;
+
+    font-family: 'Alata';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 50px;
+
+    color: rgba(0, 0, 0, 0.2);
+
+
+}
+

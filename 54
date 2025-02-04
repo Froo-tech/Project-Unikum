@@ -1,0 +1,16 @@
+import time
+
+def permutations(lst, start=0):
+    if start == len(lst) - 1:
+        print(lst)
+    else:
+        for i in range(start, len(lst)):
+            lst[start], lst[i] = lst[i], lst[start]
+            permutations(lst, start + 1)
+            lst[start], lst[i] = lst[i], lst[start]
+
+array = [1, 2, 3, 4]
+now_time = time.time()
+permutations(array)
+finish_time = time.time()
+print(finish_time - now_time)

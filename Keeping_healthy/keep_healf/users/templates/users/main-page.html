@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступное Лекарство — доставка препаратов в малые города</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fff9;
+            background-image: linear-gradient(to bottom, #f9fff9, #ffffff);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 15px rgba(46, 125, 50, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background-color: #2e7d32;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #1b5e20;
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #4caf50;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-login {
+            background-color: white;
+            color: #2e7d32;
+            border: 2px solid #c8e6c9;
+        }
+
+        .btn-register {
+            background-color: #2e7d32;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 80px 0 60px;
+            background-color: white;
+            border-bottom: 1px solid #e8f5e9;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.15);
+            border: 1px solid #e8f5e9;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: #1b5e20;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #4caf50;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .highlight-box {
+            background-color: #e6f7e6;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2e7d32;
+            margin-bottom: 30px;
+        }
+
+        .highlight-box h3 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+
+        .stats {
+            padding: 60px 0;
+            background-color: #f1f8e9;
+        }
+
+        .stats-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1b5e20;
+            font-size: 32px;
+        }
+        .stats:hover {
+            transform: translateY(-10px); /* Поднимаем элемент */
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+            border-top: 4px solid #4caf50;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-subtext {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #1b5e20;
+            font-size: 32px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .step {
+            background-color: #f8fff8;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #c8e6c9;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            border-color: #4caf50;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2e7d32;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-icon {
+            font-size: 40px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 22px;
+            color: #1b5e20;
+            margin-bottom: 15px;
+        }
+
+        /* Partners section */
+        .partners {
+            padding: 60px 0;
+            background-color: #f1f8e9;
+        }
+
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .partner-logo {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 80px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* CTA section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn-cta-primary {
+            background-color: white;
+            color: #2e7d32;
+            padding: 15px 35px;
+            font-size: 18px;
+        }
+
+        .btn-cta-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 15px 35px;
+            font-size: 18px;
+        }
+
+        .partner-note {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1b5e20;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #c8e6c9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #e8f5e9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #c8e6c9;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #4caf50;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+            }
+
+            .hero-text, .hero-image {
+                flex: none;
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+                <div class="logo-text">Доступное Лекарство</div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#how">Как это работает</a>
+                <a href="#stats">Статистика</a>
+                <a href="#partners">Партнерам</a>
+                <a href="#about">О проекте</a>
+            </nav>
+
+            <div class="header-buttons">
+                <a href="/login" class="btn btn-login">Войти</a>
+                <a href="#" class="btn btn-register">Регистрация</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Доставка жизненно важных препаратов в малые города</h1>
+                    <div class="hero-subtitle">Для жителей отдаленных населенных пунктов и льготных категорий граждан</div>
+
+                    <div class="highlight-box">
+                        <h3>📦 Получите лекарства по рецепту без поездки в аптеку</h3>
+                        <p>Быстрая доставка по льготным ценам с гарантированным соблюдением холодовой цепи для термолабильных препаратов.</p>
+                    </div>
+
+                    <div class="hero-description">
+                        <p>Мы обеспечиваем равный доступ к лекарственным препаратам для всех жителей России, независимо от места проживания.</p>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <a href="#how" class="btn btn-cta-primary">Как получить лекарства</a>
+                        <a href="#" class="btn btn-cta-secondary">Проверить рецепт</a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <!-- Изображение можно добавить через тег img -->
+                    <div style="width:100%;height:400px;background:linear-gradient(to bottom right, #e8f5e9, #c8e6c9);display:flex;align-items:center;justify-content:center;color:#2e7d32;font-size:24px;font-weight:bold;">
+                        <div style="text-align:center;">
+                            <i class="fas fa-truck-medical" style="font-size:60px;margin-bottom:20px;"></i><br>
+                            Доставка лекарств<br>в любой населенный пункт
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <h2 class="section-title">Статистика доступности лекарств в России</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">40 000+</div>
+                    <div class="stat-text">отделений «Почты России»</div>
+                    <div class="stat-subtext">для получения заказов по всей стране</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">129</div>
+                    <div class="stat-text">малых городов</div>
+                    <div class="stat-subtext">находятся под угрозой исчезновения</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">3.4 млн</div>
+                    <div class="stat-text">человек</div>
+                    <div class="stat-subtext">нуждаются в доступных лекарствах</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">22%</div>
+                    <div class="stat-text">россиян</div>
+                    <div class="stat-subtext">уже пользуются телемедицинскими услугами</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works" id="how">
+        <div class="container">
+            <h2 class="section-title">Как получить лекарства через наш сервис</h2>
+            <p style="text-align:center; max-width:800px; margin:0 auto 50px; font-size:18px; color:#555;">
+                4 простых шага для получения жизненно важных препаратов даже в самых отдаленных населенных пунктах
+            </p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="step-title">Получите рецепт</h3>
+                    <p>На очной консультации у врача или через телемедицинский прием в «СберЗдоровье»</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="step-title">Оформите заказ</h3>
+                    <p>Введите номер электронного рецепта и выберите удобное отделение «Почты России» для получения</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="step-title">Мы доставим</h3>
+                    <p>Специальная упаковка с термоконтролем для сохранения холодовой цепи. Отслеживание в реальном времени</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="step-title">Получите препараты</h3>
+                    <p>В отделении «Почты России» по SMS-коду или документу. Бесплатно для льготных категорий</p>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <a href="#" class="btn btn-register" style="padding:15px 40px; font-size:18px;">Начать оформление заказа</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="partners" id="partners">
+        <div class="container">
+            <h2 class="section-title">Наши партнеры и технологическая платформа</h2>
+
+            <div class="partners-logos">
+                <div class="partner-logo">
+                    <div style="font-weight:bold; color:#1b5e20; font-size:20px;">СберЗдоровье</div>
+                </div>
+                <div class="partner-logo">
+                    <div style="font-weight:bold; color:#d32f2f; font-size:20px;">Почта России</div>
+                </div>
+                <div class="partner-logo">
+                    <div style="font-weight:bold; color:#0d47a1; font-size:18px;">ЕГИСЗ</div>
+                </div>
+                <div class="partner-logo">
+                    <div style="font-weight:bold; color:#ff6f00; font-size:18px;">Минздрав РФ</div>
+                </div>
+            </div>
+
+            <div style="max-width:800px; margin:50px auto 0; padding:25px; background-color:white; border-radius:10px; border-left:5px solid #388e3c;">
+                <h3 style="color:#1b5e20; margin-bottom:15px;">Для корпоративных партнеров</h3>
+                <p>Участие в программе «Доступное лекарство» позволяет получить налоговый вычет на благотворительную деятельность, улучшить ESG-показатели компании и решить конкретные социальные задачи в регионах присутствия.</p>
+                <a href="#" class="btn" style="background-color:#2e7d32; color:white; margin-top:15px;">Стать партнером</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Подключитесь к сервису уже сегодня</h2>
+            <p class="cta-subtitle">Получите доступ к жизненно важным лекарствам без необходимости ехать в другой город или стоять в очередях</p>
+
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-cta-primary"><i class="fas fa-user-md"></i> Записаться к врачу</a>
+                <a href="#" class="btn btn-cta-secondary"><i class="fas fa-pills"></i> Проверить рецепт</a>
+                <a href="#" class="btn btn-cta-secondary"><i class="fas fa-handshake"></i> Стать партнером</a>
+            </div>
+
+            <p class="partner-note">Сервис работает в рамках экосистемы «СберЗдоровье»</p>
+        </div>
+
+    <script>
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Анимация появления статистических карточек при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Применяем анимацию к карточкам статистики
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+
+        // Применяем анимацию к шагам
+        document.querySelectorAll('.step').forEach((step, index) => {
+            step.style.opacity = '0';
+            step.style.transform = 'translateY(20px)';
+            step.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+            observer.observe(step);
+        });
+    </script>
+</body>
+</html>

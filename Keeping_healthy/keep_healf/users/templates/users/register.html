@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .main {
+            width: 100%;
+            max-width: 500px;
+        }
+        .con {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .messages {
+            margin-bottom: 20px;
+        }
+        .alert {
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .alert-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .alert-error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+        .alert-info {
+            background-color: #d9edf7;
+            color: #31708f;
+            border: 1px solid #bce8f1;
+        }
+        .error-con {
+            color: #d9534f;
+            background-color: #fdf7f7;
+            border: 1px solid #eed3d7;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-con {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: -10px;
+            font-size: 0.95em;
+        }
+        input {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #5cb85c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.2);
+        }
+        .but {
+            margin-top: 10px;
+        }
+        button.reg {
+            width: 100%;
+            padding: 12px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button.reg:hover {
+            background-color: #4cae4c;
+        }
+        .log {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .log a {
+            color: #337ab7;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+        .log a:hover {
+            color: #23527c;
+            text-decoration: underline;
+        }
+        .password-strength {
+            margin-top: -10px;
+            font-size: 0.8em;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            .con {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="con">
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-con">
+                    {% if error %}
+                    <div class="error-con" role="alert" aria-live="assertive">
+                        <i class="fas fa-exclamation-circle"></i>{{ error }}
+                    </div>
+                    {% endif %}
+
+                    <label for="username">Имя пользователя</label>
+                    <input class="username" type="text" name="username" required placeholder="Придумайте логин">
+
+                    <label for="email">Электронная почта</label>
+                    <input class="email" type="email" name="email" required placeholder="example@mail.com">
+
+                    <label for="tel">Телефон</label>
+                    <input class="tel" type="tel" name="tel" required placeholder="+7 (XXX) XXX-XX-XX">
+
+                    <label for="password">Пароль</label>
+                    <input class="password" type="password" name="password" required placeholder="Не менее 8 символов">
+                    <div class="password-strength">Используйте буквы, цифры и специальные символы</div>
+
+                    <label for="password_">Подтверждение пароля</label>
+                    <input class="password_" type="password" name="password_" required placeholder="Повторите пароль">
+
+                    <div class="but">
+                        <button class="reg" type="submit">Зарегистрироваться</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="log">
+                Уже есть аккаунт? <a href="/users/login">Войти</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

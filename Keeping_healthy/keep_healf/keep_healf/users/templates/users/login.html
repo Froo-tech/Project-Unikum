@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в систему</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #5cb85c;
+            --primary-hover: #4cae4c;
+            --error-color: #d9534f;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--light-gray);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .navbar-brand a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-links ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .navbar-links li {
+            position: relative;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .navbar-links a:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            padding: 20px;
+        }
+
+        .con {
+            background: #fff;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 25px;
+            color: var(--text-color);
+            font-size: 28px;
+        }
+
+        .error-con {
+            background-color: #fdf7f7;
+            color: var(--error-color);
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--error-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: -15px;
+        }
+
+        input {
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.2);
+        }
+
+        .but-con {
+            margin-top: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            margin-top: 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .links a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                padding: 20px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .navbar-links.active {
+                display: block;
+            }
+
+            .navbar-links ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .con {
+                padding: 30px 25px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="con">
+            <form action="" method="post" aria-labelledby="login-form-title">
+                <h1 id="login-form-title" class="sr-only">Форма входа</h1>
+                <h1>Вход в систему</h1>
+
+                {% if error %}
+                <div class="error-con" role="alert" aria-live="assertive">
+                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endif %}
+
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" name="username" required aria-required="true" placeholder="Введите ваш логин">
+
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required aria-required="true" placeholder="Введите ваш пароль">
+
+                <div class="but-con">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Войти</button>
+                </div>
+
+                <div class="links">
+                    <a href="{% url 'users:register' %}">Нет аккаунта? Зарегистрироваться</a>
+                    <a href="/users/password-reset/">Забыли пароль?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            const navbarLinks = document.querySelector('.navbar-links');
+            navbarLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

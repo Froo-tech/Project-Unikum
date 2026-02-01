@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание нового рецепта — Доступное Лекарство</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #5cb85c;
+            --primary-hover: #4cae4c;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--light-gray);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group label.required::after {
+            content: " *";
+            color: var(--danger-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .medicine-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: end;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .medicine-row:hover {
+            background: #f0f0f0;
+        }
+
+        .remove-medicine {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .remove-medicine:hover {
+            background: #c82333;
+        }
+
+        .add-medicine {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .add-medicine:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--danger-color);
+            margin-bottom: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .medicine-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    {{ user.username|first|upper }}
+                </div>
+                <div class="user-details">
+                    <h2 style="margin: 0;">Создание нового рецепта</h2>
+                    <p style="margin: 5px 0 0; color: #666;">{{ user.username }} ({{ user.email }})</p>
+                </div>
+            </div>
+            <div>
+                <a href="{% url 'users:account' %}" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Назад к рецептам
+                </a>
+            </div>
+        </div>
+
+        {% if error %}
+        <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" id="prescription-form">
+            {% csrf_token %}
+
+            <div class="form-container">
+                <!-- Основная информация о рецепте -->
+                <div class="form-section">
+                    <h3><i class="fas fa-file-medical"></i> Основная информация о рецепте</h3>
+
+                    <div class="form-group">
+                        <label for="external_id" class="required">Номер рецепта (ID)</label>
+                        <input type="text" id="external_id" name="external_id" class="form-control"
+                               placeholder="Введите номер рецепта, например: RX-2024-001" required
+                               value="{{ preserved_data.external_id }}">
+                        <small style="color: #666; font-size: 14px;">Уникальный идентификатор рецепта</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="doctor_name" class="required">ФИО врача</label>
+                        <input type="text" id="doctor_name" name="doctor_name" class="form-control"
+                               placeholder="Например: Иванова Анна Петровна" required
+                               value="{{ preserved_data.doctor_name }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clinic" class="required">Лечебное учреждение</label>
+                        <input type="text" id="clinic" name="clinic" class="form-control"
+                               placeholder="Например: Городская поликлиника №1" required
+                               value="{{ preserved_data.clinic }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="diagnosis">Диагноз (МКБ-10)</label>
+                        <input type="text" id="diagnosis" name="diagnosis" class="form-control"
+                               placeholder="Например: J20.9 - Острый бронхит"
+                               value="{{ preserved_data.diagnosis }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiry_date" class="required">Срок действия рецепта</label>
+                        <input type="date" id="expiry_date" name="expiry_date" class="form-control" required
+                               value="{{ preserved_data.expiry_date|default_if_none:'' }}">
+                        <small style="color: #666; font-size: 14px;">Дата, до которой рецепт действителен</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Примечания и рекомендации врача</label>
+                        <textarea id="notes" name="notes" class="form-control"
+                                  placeholder="Дополнительные рекомендации, особые указания...">{{ preserved_data.notes }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Список препаратов -->
+                <div class="form-section">
+                    <h3><i class="fas fa-pills"></i> Назначаемые препараты</h3>
+
+                    <div id="medicines-container">
+                        <!-- Препараты будут добавляться динамически -->
+                        <div class="medicine-row" data-index="0">
+                            <div>
+                                <label for="medicine_0_name" class="required">Название препарата</label>
+                                <input type="text" id="medicine_0_name" name="medicine_0_name" class="form-control"
+                                       placeholder="Например: Амоксициллин" required
+                                       value="{{ preserved_data.medicine_0_name }}">
+                            </div>
+
+                            <div>
+                                <label for="medicine_0_dosage" class="required">Дозировка</label>
+                                <input type="text" id="medicine_0_dosage" name="medicine_0_dosage" class="form-control"
+                                       placeholder="Например: 500 мг" required
+                                       value="{{ preserved_data.medicine_0_dosage }}">
+                            </div>
+
+                            <div>
+                                <label for="medicine_0_form" class="required">Форма</label>
+                                <select id="medicine_0_form" name="medicine_0_form" class="form-control" required>
+                                    <option value="">Выберите...</option>
+                                    <option value="tablets" {% if preserved_data.medicine_0_form == 'tablets' %}selected{% endif %}>Таблетки</option>
+                                    <option value="capsules" {% if preserved_data.medicine_0_form == 'capsules' %}selected{% endif %}>Капсулы</option>
+                                    <option value="injection" {% if preserved_data.medicine_0_form == 'injection' %}selected{% endif %}>Инъекции</option>
+                                    <option value="ointment" {% if preserved_data.medicine_0_form == 'ointment' %}selected{% endif %}>Мазь</option>
+                                    <option value="drops" {% if preserved_data.medicine_0_form == 'drops' %}selected{% endif %}>Капли</option>
+                                    <option value="syrup" {% if preserved_data.medicine_0_form == 'syrup' %}selected{% endif %}>Сироп</option>
+                                    <option value="spray" {% if preserved_data.medicine_0_form == 'spray' %}selected{% endif %}>Спрей</option>
+                                    <option value="powder" {% if preserved_data.medicine_0_form == 'powder' %}selected{% endif %}>Порошок</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="medicine_0_quantity" class="required">Количество</label>
+                                <input type="number" id="medicine_0_quantity" name="medicine_0_quantity" class="form-control"
+                                       placeholder="Например: 20" min="1" required
+                                       value="{{ preserved_data.medicine_0_quantity|default_if_none:'1' }}">
+                            </div>
+
+                            <div>
+                                <label for="medicine_0_instructions">Инструкция</label>
+                                <textarea id="medicine_0_instructions" name="medicine_0_instructions" class="form-control"
+                                          placeholder="Например: По 1 таблетке 3 раза в день после еды">{{ preserved_data.medicine_0_instructions }}</textarea>
+                            </div>
+
+                            <div style="display: none;">
+                                <!-- Скрытая кнопка удаления для первой строки -->
+                                <button type="button" class="remove-medicine" onclick="removeMedicineRow(0)">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="medicine_count" name="medicine_count" value="1">
+
+                    <button type="button" class="add-medicine" onclick="addMedicineRow()">
+                        <i class="fas fa-plus"></i> Добавить еще один препарат
+                    </button>
+                </div>
+
+                <!-- Кнопки действий -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-save"></i> Сохранить рецепт
+                    </button>
+                    <a href="{% url 'users:account' %}" class="btn btn-outline" style="flex: 1;">
+                        <i class="fas fa-times"></i> Отмена
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let medicineIndex = 1; // Начинаем с 1, так как первый препарат уже есть
+
+        function addMedicineRow() {
+            const container = document.getElementById('medicines-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'medicine-row';
+            newRow.setAttribute('data-index', medicineIndex);
+
+            newRow.innerHTML = `
+                <div>
+                    <label for="medicine_${medicineIndex}_name" class="required">Название препарата</label>
+                    <input type="text" id="medicine_${medicineIndex}_name" name="medicine_${medicineIndex}_name"
+                           class="form-control" placeholder="Например: Амоксициллин" required>
+                </div>
+
+                <div>
+                    <label for="medicine_${medicineIndex}_dosage" class="required">Дозировка</label>
+                    <input type="text" id="medicine_${medicineIndex}_dosage" name="medicine_${medicineIndex}_dosage"
+                           class="form-control" placeholder="Например: 500 мг" required>
+                </div>
+
+                <div>
+                    <label for="medicine_${medicineIndex}_form" class="required">Форма</label>
+                    <select id="medicine_${medicineIndex}_form" name="medicine_${medicineIndex}_form" class="form-control" required>
+                        <option value="">Выберите...</option>
+                        <option value="tablets">Таблетки</option>
+                        <option value="capsules">Капсулы</option>
+                        <option value="injection">Инъекции</option>
+                        <option value="ointment">Мазь</option>
+                        <option value="drops">Капли</option>
+                        <option value="syrup">Сироп</option>
+                        <option value="spray">Спрей</option>
+                        <option value="powder">Порошок</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="medicine_${medicineIndex}_quantity" class="required">Количество</label>
+                    <input type="number" id="medicine_${medicineIndex}_quantity" name="medicine_${medicineIndex}_quantity"
+                           class="form-control" placeholder="Например: 20" min="1" required value="1">
+                </div>
+
+                <div>
+                    <label for="medicine_${medicineIndex}_instructions">Инструкция</label>
+                    <textarea id="medicine_${medicineIndex}_instructions" name="medicine_${medicineIndex}_instructions"
+                              class="form-control" placeholder="Например: По 1 таблетке 3 раза в день после еды"></textarea>
+                </div>
+
+                <div>
+                    <button type="button" class="remove-medicine" onclick="removeMedicineRow(${medicineIndex})">
+                        <i class="fas fa-trash"></i> Удалить
+                    </button>
+                </div>
+            `;
+
+            container.appendChild(newRow);
+            medicineIndex++;
+            document.getElementById('medicine_count').value = medicineIndex;
+        }
+
+        function removeMedicineRow(index) {
+            const row = document.querySelector(`.medicine-row[data-index="${index}"]`);
+            if (row) {
+                row.remove();
+                // Обновляем индексы оставшихся строк
+                updateMedicineIndices();
+            }
+        }
+
+        function updateMedicineIndices() {
+            const rows = document.querySelectorAll('.medicine-row');
+            let newIndex = 0;
+
+            rows.forEach((row, index) => {
+                row.setAttribute('data-index', newIndex);
+
+                // Обновляем все поля внутри строки
+                row.querySelectorAll('input, select, textarea, label, button').forEach(element => {
+                    if (element.id) {
+                        element.id = element.id.replace(/medicine_\d+_/, `medicine_${newIndex}_`);
+                    }
+                    if (element.name) {
+                        element.name = element.name.replace(/medicine_\d+_/, `medicine_${newIndex}_`);
+                    }
+                    if (element.htmlFor) {
+                        element.htmlFor = element.htmlFor.replace(/medicine_\d+_/, `medicine_${newIndex}_`);
+                    }
+                    if (element.onclick && element.onclick.toString().includes('removeMedicineRow')) {
+                        element.setAttribute('onclick', `removeMedicineRow(${newIndex})`);
+                    }
+                });
+
+                newIndex++;
+            });
+
+            medicineIndex = newIndex;
+            document.getElementById('medicine_count').value = medicineIndex;
+        }
+
+        // Автоматически устанавливаем минимальную дату (сегодня)
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const expiryDateInput = document.getElementById('expiry_date');
+            expiryDateInput.min = today;
+
+            // Если поле пустое, устанавливаем дату через 30 дней по умолчанию
+            if (!expiryDateInput.value) {
+                const defaultDate = new Date();
+                defaultDate.setDate(defaultDate.getDate() + 30);
+                expiryDateInput.value = defaultDate.toISOString().split('T')[0];
+            }
+        });
+
+        // Валидация формы перед отправкой
+        document.getElementById('prescription-form').addEventListener('submit', function(event) {
+            const externalId = document.getElementById('external_id').value.trim();
+            const doctorName = document.getElementById('doctor_name').value.trim();
+            const clinic = document.getElementById('clinic').value.trim();
+            const expiryDate = document.getElementById('expiry_date').value;
+
+            if (!externalId || !doctorName || !clinic || !expiryDate) {
+                alert('Пожалуйста, заполните все обязательные поля в разделе "Основная информация"');
+                event.preventDefault();
+                return;
+            }
+
+            // Проверяем хотя бы один препарат заполнен полностью
+            let hasValidMedicine = false;
+            for (let i = 0; i < medicineIndex; i++) {
+                const name = document.getElementById(`medicine_${i}_name`);
+                const dosage = document.getElementById(`medicine_${i}_dosage`);
+                const quantity = document.getElementById(`medicine_${i}_quantity`);
+
+                if (name && dosage && quantity) {
+                    if (name.value.trim() && dosage.value.trim() && quantity.value > 0) {
+                        hasValidMedicine = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!hasValidMedicine) {
+                alert('Пожалуйста, добавьте хотя бы один препарат с названием, дозировкой и количеством');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

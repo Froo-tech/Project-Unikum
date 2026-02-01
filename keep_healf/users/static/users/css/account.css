@@ -1,0 +1,34 @@
+body {
+    background-color: #2A2E32;
+}
+
+.con-is_true {
+    background-color: #2A2E32;
+    color: #ffffff;
+    display: block;
+    text-align: center;
+}
+
+a {
+    display: block;
+    margin-top: 3vh;
+    text-decoration: none;
+    color: #818181;
+    text-align: center;
+}
+
+.error-con {
+    margin-bottom: 2vh;
+    color: #ff6b6b;
+    background-color: #ffffff;
+    border: 1px solid #ff6b6b;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
